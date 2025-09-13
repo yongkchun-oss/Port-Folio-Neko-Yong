@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neko - Programming Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c1810 0%, #8b0000 30%, #4a4a4a 70%, #d3d3d3 100%);
+            color: #f5f5f5;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(44, 24, 16, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #8b0000;
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #d3d3d3;
+            text-shadow: 0 0 20px rgba(211, 211, 211, 0.5);
+        }
+
+        .code-brackets {
+            color: #8b0000;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(139, 0, 0, 0.2) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #f5f5f5;
+            text-shadow: 0 0 30px rgba(245, 245, 245, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .services {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, transparent, rgba(139, 0, 0, 0.1), transparent);
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: #d3d3d3;
+            text-shadow: 0 0 30px rgba(211, 211, 211, 0.5);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, rgba(44, 24, 16, 0.8), rgba(139, 0, 0, 0.3));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(211, 211, 211, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(139, 0, 0, 0.2), transparent);
+            transform: rotate(-45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #8b0000;
+            box-shadow: 0 20px 50px rgba(139, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #8b0000, #d3d3d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #d3d3d3;
+        }
+
+        .service-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #8b0000;
+            margin: 20px 0;
+            text-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+        }
+
+        .service-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .contact {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(211, 211, 211, 0.1));
+        }
+
+        .contact h2 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: #d3d3d3;
+            text-shadow: 0 0 30px rgba(211, 211, 211, 0.5);
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #25d366, #20b358);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-icon {
+            font-size: 1.5rem;
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-code {
+            position: absolute;
+            color: rgba(139, 0, 0, 0.2);
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .services h2, .contact h2 {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-code" style="left: 10%; animation-delay: 0s;">&lt;/&gt;</div>
+        <div class="floating-code" style="left: 20%; animation-delay: 2s;">{ }</div>
+        <div class="floating-code" style="left: 30%; animation-delay: 4s;">function()</div>
+        <div class="floating-code" style="left: 40%; animation-delay: 6s;">console.log</div>
+        <div class="floating-code" style="left: 50%; animation-delay: 8s;">const =</div>
+        <div class="floating-code" style="left: 60%; animation-delay: 10s;">if (true)</div>
+        <div class="floating-code" style="left: 70%; animation-delay: 12s;">return;</div>
+        <div class="floating-code" style="left: 80%; animation-delay: 14s;">async</div>
+        <div class="floating-code" style="left: 90%; animation-delay: 16s;">await</div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    Neko
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Programming Designer</h1>
+                <p>Transforming Ideas Into Digital Reality</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <h2>Premium Development Services</h2>
+            <div class="services-grid">
+
+                <div class="service-card">
+                    <div class="service-icon">WEB</div>
+                    <h3>Single Page Website</h3>
+                    <div class="service-price">RM 2,000</div>
+                    <div class="service-description">
+                        Perfect for showcasing your brand with impact. A sleek, modern single-page website that tells your story, captivates visitors, and converts them into customers. Fast loading, mobile-optimized, and designed to make unforgettable first impressions.
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">PRO</div>
+                    <h3>Complete Business Website</h3>
+                    <div class="service-price">RM 12,000</div>
+                    <div class="service-description">
+                        Launch your business with confidence. A full-featured website with multiple pages, advanced functionality, SEO optimization, and powerful backend systems. Everything you need to establish credibility and scale your operations from day one.
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">APP</div>
+                    <h3>Mobile App Development</h3>
+                    <div class="service-price">RM 28,000</div>
+                    <div class="service-description">
+                        Take your business mobile with cutting-edge app development. Custom iOS and Android applications built with the latest technologies. From concept to app store launch, we deliver premium mobile experiences that engage and delight users.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact">
+        <div class="container">
+            <h2>Ready to Build Something Amazing?</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 40px; opacity: 0.9;">
+                Let's discuss your project and bring your digital vision to life
+            </p>
+            <a href="https://wa.me/60167830243" class="whatsapp-btn" target="_blank">
+                <span class="whatsapp-icon">CHAT</span>
+                WhatsApp: 016-783-0243
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Add smooth scrolling for better user experience
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add parallax effect to floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = scrolled * 0.5;
+
+            document.querySelector('.floating-elements').style.transform = `translateY(${parallax}px)`;
+        });
+    </script>
+</body>
+</html>
